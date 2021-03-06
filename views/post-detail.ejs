@@ -1,0 +1,31 @@
+<%- include('header', {sessionSet: sessionSet}) -%>
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-md-10"></div>
+    <div class="col-md-2">
+      <input
+        type="text"
+        name="search"
+        id="search"
+        class="form-control w-auto float-right"
+        placeholder="Ara"
+      />
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-md-12" id="appendScope">
+      <div class="card mb-3">
+        <div class="card-header">
+          <h5><%= post.PostTitle %></h5>
+        </div>
+        <div class="card-body">
+          <p><%= post.Post %></p>
+          <p class="text-right"><%= post.FirstName %> <%= post.LastName %></p>
+          <p class="text-right"><%= post.PublishedDate %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('footer') -%>

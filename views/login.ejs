@@ -1,0 +1,58 @@
+<%- include('header', {sessionSet: sessionSet}) -%>
+<div class="container mt-3">
+  <div class="row mt-5">
+    <div class="col-md-2"></div>
+
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header text-center">
+          <h1>GİRİŞ</h1>
+        </div>
+        <div class="card-body">
+          <div class="alert alert-warning <%= alertStatus %>" id="alert">
+            E-mail veya şifre yanlış!
+          </div>
+          <form action="/login" method="POST">
+            <div class="row mt-2">
+              <label for="email">Email</label>
+              <input
+                class="form-control"
+                type="text"
+                name="email"
+                id="email"
+                placeholder="Email"
+              />
+            </div>
+
+            <div class="row mt-2">
+              <label for="password">Şifre</label>
+              <input
+                class="form-control"
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Şifre"
+              />
+            </div>
+            <div class="row mt-2">
+              <a href="/forgot-password">
+                <small id="forgotPassword">Şifremi unuttum?</small>
+              </a>
+            </div>
+            <div class="row mt-2">
+              <input
+                class="btn btn-success form-control"
+                type="submit"
+                name="submit"
+                id="submit"
+                value="Login"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>
+<%- include('footer') -%>

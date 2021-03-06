@@ -1,0 +1,59 @@
+<%- include('header', {sessionSet: sessionSet}) -%>
+<div class="container mt-3">
+  <div class="row mt-5">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="alert alert-success <%= alertStatus %>" id="alert">
+        Post güncellendi.
+      </div>
+      <% if(alertStatus == ""){ alertStatus = "d-none" %>
+      <script>
+        setInterval(function () {
+          console.log(location.href);
+          location.href = "./myposts";
+        }, 1000);
+      </script>
+      <% } %>
+      <div class="card">
+        <!-- <div class="card-header text-center">
+          <h1>Post Yaz</h1>
+        </div> -->
+        <div class="card-body">
+          <form action="/edit-post" method="POST">
+            <input type="hidden" name="id" value="<%= result.ID %>" />
+            <div class="row mt-2">
+              <label for="soyisim">Başlık</label>
+              <input
+                name="titleContent"
+                id="titleContent"
+                class="form-control"
+                value="<%= result.PostTitle %>"
+              />
+            </div>
+            <div class="row mt-2">
+              <label for="postContent">Post</label>
+              <textarea
+                name="postContent"
+                id="postContent"
+                class="form-control summernote"
+              >
+<%= result.Post %></textarea
+              >
+            </div>
+            <div class="row mt-2">
+              <input
+                class="btn btn-success form-control"
+                type="submit"
+                name="submit"
+                id="submit"
+                value="Kaydet"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>
+<%- include('footer') -%>

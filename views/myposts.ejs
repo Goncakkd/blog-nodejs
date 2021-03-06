@@ -1,0 +1,58 @@
+<%- include('header', {sessionSet: sessionSet}) -%>
+<div class="container mt-3">
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <div class="alert alert-success <%= alertStatus %>" id="alert">
+        Post kaydedildi.
+      </div>
+      <% if(alertStatus == ""){ alertStatus = "d-none" %>
+      <script>
+        setInterval(function () {
+          console.log(location.href);
+          location.href = location.href;
+        }, 1000);
+      </script>
+      <% } if(myposts.length > 0){ myposts.forEach(function(mypost) { %>
+      <div class="card mb-3">
+        <div class="card-header">
+          <h5>
+            <%= mypost.PostTitle %>
+            <div
+              id="deletePost"
+              class="float-right deletePost"
+              data-id="<%= mypost.ID %>"
+            >
+              <i class="fas fa-trash-alt"></i>
+            </div>
+            <div
+              id="editPost"
+              data-id="<%= mypost.ID %>"
+              class="mr-2 float-right editPost"
+            >
+              <i class="fas fa-edit"></i>
+            </div>
+          </h5>
+        </div>
+        <div class="card-body">
+          <p><%= mypost.Post %></p>
+        </div>
+      </div>
+      <% }) }else{ %>
+      <div class="alert alert-info">Henüz bir yazı yok.</div>
+      <% } %>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).on("click", ".editPost", function () {
+    window.location.href = "./edit-post?id=" + $(this).attr("data-id");
+  });
+  $(document).on("click", ".deletePost", function () {
+    if (
+      confirm("Seçtiğiniz post kalıcı olarak silinecektir, onaylıyor musunuz?")
+    ) {
+      window.location.href = "./delete-post?id=" + $(this).attr("data-id");
+    }
+  });
+</script>
+<%- include('footer') -%>

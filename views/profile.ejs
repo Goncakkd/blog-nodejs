@@ -1,0 +1,63 @@
+<%- include('header', {sessionSet: sessionSet}) -%>
+<div class="container mt-3">
+ 
+ 
+  <div class="row mt-5">
+      
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="alert alert-success <%= alertStatus %>" id="alert">
+            Profil bilgileri güncellendi.
+        </div>
+        <% if(alertStatus == ""){ 
+            alertStatus = "d-none" %>
+        <script>
+            setInterval(function () {
+              console.log(location.href)
+                location.href = location.href;
+            }, 1000);
+        </script>
+        <% } %>
+      <div class="card">
+        <div class="card-header text-center">
+          <h1>Profil</h1>
+        </div>
+        <div class="card-body">
+          <form action="/profile" method="POST">
+            <div class="row mt-2">
+              <label for="isim">İsim</label>
+              <input
+                type="text"
+                name="isim"
+                id="isim"
+                value="<%= user.FirstName %>"
+                class="form-control"
+              />
+            </div>
+            <div class="row mt-2">
+              <label for="soyisim">Soyisim</label>
+              <input
+                type="text"
+                name="soyisim"
+                id="soyisim"
+                value="<%= user.LastName %>"
+                class="form-control"
+              />
+            </div>
+            <div class="row mt-2">
+              <input
+                class="btn btn-success form-control"
+                type="submit"
+                name="submit"
+                id="submit"
+                value="Kaydet"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</d iv>
+<%- include('footer') -%>

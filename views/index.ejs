@@ -1,0 +1,77 @@
+<%- include('header', {sessionSet: sessionSet}) -%>
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-md-10"></div>
+    <div class="col-md-2">
+      <input
+        type="text"
+        name="search"
+        id="search"
+        class="form-control w-auto float-right"
+        placeholder="Ara"
+      />
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-md-12" id="appendScope">
+      <% if(posts.length > 0){ posts.forEach(function(post) { %>
+      <div class="card mb-3">
+        <div class="card-header">
+          <h5><%= post.PostTitle %></h5>
+        </div>
+        <div class="card-body">
+          <p>
+            <%= post.Post.substring(0, 150) %>...<a
+              href="./post-detail?id=<%=post.ID %>"
+            >
+              Devamını Gör</a
+            >
+          </p>
+          <p class="text-right"><%= post.FirstName %> <%= post.LastName %></p>
+          <p class="text-right"><%= post.PublishedDate %></p>
+        </div>
+      </div>
+      <% }) }else{ %>
+      <div class="alert alert-info">Henüz bir yazı yok.</div>
+      <% } %>
+    </div>
+  </div>
+</div>
+<script>
+  $("#search").on("keyup", function () {
+    $.ajax({
+      url: "getSearch",
+      data: {
+        word: $("#search").val(),
+      },
+      success: function (res) {
+        var eachCard = "";
+        if (res.length == 0) {
+          eachCard = '<div class="alert alert-info">Sonuç bulunamadı.</div>';
+        } else {
+          res.forEach(function (item) {
+            eachCard += `
+          <div class="card mb-3">
+            <div class="card-header">
+              <h5>
+               ${item.PostTitle}
+               
+              </h5>
+            </div>
+            <div class="card-body">
+              <p> ${item.Post.substring(0, 150)}<a href="./post-detail?id=${
+              item.ID
+            }"> Devamını Gör</a></p>
+              <p class="text-right">${item.FirstName} ${item.LastName}</p>
+              <p class="text-right"> ${item.PublishedDate}</p>
+            </div>
+        </div>`;
+          });
+        }
+
+        $("#appendScope").html(eachCard);
+      },
+    });
+  });
+</script>
+<%- include('footer') -%>

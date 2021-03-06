@@ -1,0 +1,113 @@
+<%- include('header', {sessionSet: sessionSet}) -%>
+<div class="container mt-3">
+  <div class="row mt-5">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header text-center">
+          <h1>KAYDOL</h1>
+        </div>
+        <div class="card-body">
+          <div class="alert alert-warning <%= alertStatus %>" id="alert">
+            Bu email adresi zaten kayıtlı.
+          </div>
+
+          <form action="/register" method="POST">
+            <div class="row mt-2">
+              <label for="userName">İsim</label>
+              <input
+                class="form-control"
+                type="text"
+                name="firstName"
+                id="firstName"
+                placeholder="İsim"
+                required
+              />
+            </div>
+            <div class="row mt-2">
+              <label for="userName">Soyisim</label>
+              <input
+                class="form-control"
+                type="text"
+                name="lastName"
+                id="lastName"
+                placeholder="Soyisim"
+                required
+              />
+            </div>
+            <div class="row mt-2">
+              <label for="email">Email</label>
+              <input
+                class="form-control"
+                type="text"
+                name="email"
+                id="email"
+                placeholder="Email"
+                required
+              />
+            </div>
+            <div class="row mt-2">
+              <label for="password">Password</label>
+              <input
+                class="form-control"
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Password"
+                required
+              />
+            </div>
+            <div class="row d-none mt-2" id="passwordContain">
+              <div class="form-group" id="message">
+                <h6 style="color: crimson">
+                  Şifre en az bir küçük harf, en az bir büyük harf içermelidir
+                  ve en az 8 karakterden oluşmalıdır.
+                </h6>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <input
+                class="btn btn-success form-control"
+                type="submit"
+                name="submit"
+                id="submit"
+                value="Register"
+                disabled
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>
+<script>
+  $("#password").on("focus", function () {
+    $("#passwordContain").removeClass("d-none");
+  });
+  $("#password").on("blur", function () {
+    $("#passwordContain").addClass("d-none");
+  });
+  $("#password").on("keyup", function () {
+    console.log(hasLowerCase($(this).val()));
+    if (
+      hasLowerCase($(this).val()) &&
+      hasUpperCase($(this).val()) &&
+      $(this).val().length >= 8
+    ) {
+      $("#submit").prop("disabled", false);
+      $("#passwordContain").addClass("d-none");
+    } else {
+      $("#submit").prop("disabled", true);
+    }
+  });
+  function hasLowerCase(str) {
+    return /[a-z]/.test(str);
+  }
+  function hasUpperCase(str) {
+    return /[A-Z]/.test(str);
+  }
+</script>
+
+<%- include('footer') -%>
